@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PHOTO-PICKER — Pukin tila</title>
+<style>
+body { font-family: sans-serif; background: #111; color: #eee; padding: 2rem; }
+h1 { font-size: 1.4rem; margin-bottom: 0.5rem; }
+p { color: #aaa; margin-bottom: 2rem; font-size: 0.9rem; }
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; padding: 0.6rem 1rem; background: #222; color: #888; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; }
+td { padding: 0.8rem 1rem; border-bottom: 1px solid #222; font-size: 0.85rem; }
+a.btn { display: inline-block; background: #2a5c2e; color: #fff; padding: 0.4rem 0.8rem; border-radius: 4px; text-decoration: none; font-size: 0.75rem; }
+a.btn:hover { background: #3a7a3e; }
+code { background: #222; padding: 0.2rem 0.4rem; border-radius: 3px; font-size: 0.8rem; color: #7ec87e; }
+</style>
+</head>
+<body>
+<h1>PHOTO-PICKER — Pukin tila</h1>
+<p>Facebook page: <a href="https://www.facebook.com/pukintila/" style="color:#7ec87e" target="_blank">facebook.com/pukintila</a> &mdash; Download and save photos to <code>images/</code>, then <code>git add images/ &amp;&amp; git commit -m "Add photos" &amp;&amp; git push</code>.</p>
+<table>
+<tr><th>Section</th><th>Target filename</th><th>What to look for</th><th>FB Page</th></tr>
+<tr>
+  <td>Hero full-bleed</td>
+  <td><code>images/hero.jpg</code></td>
+  <td>Sheep on a pasture, landscape shot, wide/horizontal</td>
+  <td><a class="btn" href="https://www.facebook.com/pukintila/photos" target="_blank">Open FB Photos &rarr;</a></td>
+</tr>
+<tr>
+  <td>Hides section</td>
+  <td><code>images/hides.jpg</code></td>
+  <td>Close-up of sheepskin/hide, texture, natural material</td>
+  <td><a class="btn" href="https://www.facebook.com/pukintila/photos" target="_blank">Open FB Photos &rarr;</a></td>
+</tr>
+<tr>
+  <td>Wool section</td>
+  <td><code>images/wool.jpg</code></td>
+  <td>Raw wool fleece, natural colors, hands holding wool</td>
+  <td><a class="btn" href="https://www.facebook.com/pukintila/photos" target="_blank">Open FB Photos &rarr;</a></td>
+</tr>
+<tr>
+  <td>Story/Farm section</td>
+  <td><code>images/farm.jpg</code></td>
+  <td>Farm building, fields, landscape near Oulu</td>
+  <td><a class="btn" href="https://www.facebook.com/pukintila/photos" target="_blank">Open FB Photos &rarr;</a></td>
+</tr>
+</table>
+<p style="margin-top:2rem;font-size:0.75rem;color:#555;">
+After adding photos, replace the <code>.ph</code> gradient divs in index.html with:<br>
+<code>&lt;img src="images/hero.jpg" alt="..." style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" onerror="this.style.display='none'"&gt;</code>
+</p>
+</body>
+</html>

@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pukin tila — Oulu</title>
+<meta name="description" content="Pukin tila Oulussa — taljoja ja raakavillaa suoraan tilalta.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --frost:   #F0EDE8;
+  --bark:    #2C2119;
+  --pine:    #2A3D2E;
+  --birch:   #C8BEA8;
+  --moss:    #3D4F38;
+  --dusk:    #1A1F2E;
+  --amber:   #C49A5C;
+  --snow:    #FAF8F5;
+}
+
+html {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bark);
+  color: var(--frost);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── MINIMAL NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1.6rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.nav-logo {
+  pointer-events: all;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+}
+.nav-logo img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  filter: invert(1) brightness(1.1);
+  opacity: 0.85;
+}
+.nav-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  color: var(--frost);
+  opacity: 0.75;
+}
+
+.lang-btns {
+  pointer-events: all;
+  display: flex;
+  gap: 0.4rem;
+}
+.lang-btns button {
+  background: none;
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--frost);
+  opacity: 0.38;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  padding: 0.15rem 0.3rem;
+}
+.lang-btns button.active,
+.lang-btns button:hover { opacity: 0.9; }
+
+/* ── SCROLL SECTIONS ── */
+section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 100svh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+
+/* Photo placeholder base */
+.ph {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/* Text scrim */
+section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.72) 0%,
+    rgba(0,0,0,0.2) 50%,
+    rgba(0,0,0,0.05) 100%
+  );
+  pointer-events: none;
+}
+
+/* Section text overlay */
+.s-text {
+  position: relative;
+  z-index: 2;
+  padding: 0 2.8rem 4rem;
+  max-width: 620px;
+}
+
+.s-label {
+  font-size: 0.55rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--amber);
+  opacity: 0.85;
+  margin-bottom: 0.7rem;
+  display: block;
+}
+
+.s-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--frost);
+  margin-bottom: 0.9rem;
+}
+
+.s-title em {
+  font-style: italic;
+  color: var(--birch);
+}
+
+.s-body {
+  font-size: 0.82rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: rgba(240,237,232,0.72);
+  max-width: 400px;
+}
+
+.s-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.4rem;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--amber);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(196,154,92,0.35);
+  padding-bottom: 2px;
+  transition: border-color 0.2s;
+}
+.s-cta:hover { border-color: var(--amber); }
+
+/* ── HERO ── */
+#hero {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+#hero::after {
+  background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 100%);
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+  padding: 2rem;
+}
+
+.hero-logo {
+  width: min(140px, 32vw);
+  height: auto;
+  filter: invert(1) brightness(1.1);
+  opacity: 0.88;
+  animation: logoFade 1.2s ease both;
+}
+@keyframes logoFade {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 0.88; transform: none; }
+}
+
+.hero-tagline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1rem, 2.2vw, 1.4rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--birch);
+  letter-spacing: 0.02em;
+  opacity: 0;
+  animation: logoFade 1s 0.4s ease both;
+}
+
+.hero-sub {
+  font-size: 0.6rem;
+  font-weight: 300;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--frost);
+  opacity: 0;
+  animation: logoFade 1s 0.7s ease both;
+}
+
+/* Scroll indicator */
+.scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  animation: logoFade 1s 1.2s ease both;
+}
+.scroll-hint span {
+  font-size: 0.5rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--frost);
+  opacity: 0.35;
+}
+.scroll-bar {
+  width: 1px;
+  height: 44px;
+  background: linear-gradient(to bottom, rgba(240,237,232,0.6), transparent);
+  animation: barPulse 2s 1.5s ease-in-out infinite;
+}
+@keyframes barPulse {
+  0%, 100% { opacity: 0.4; transform: scaleY(0.7); }
+  50% { opacity: 1; transform: scaleY(1); }
+}
+
+/* ── HIDES SECTION ── */
+#hides { align-items: flex-end; }
+
+/* ── WOOL SECTION ── */
+#wool {
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+#wool .s-text { padding-right: clamp(1.5rem, 8vw, 6rem); }
+
+/* ── STORY SECTION ── */
+#story { align-items: flex-end; }
+
+/* ── CONTACT SECTION ── */
+#contact {
+  align-items: center;
+  justify-content: center;
+  background: var(--pine);
+}
+#contact::after { display: none; }
+
+.contact-wrap {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 4rem 2rem;
+  max-width: 480px;
+  width: 100%;
+}
+
+.contact-wrap .s-label { text-align: center; }
+.contact-wrap .s-title {
+  font-size: clamp(1.8rem, 3.5vw, 3rem);
+  margin-bottom: 2.5rem;
+}
+
+.c-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem 2.5rem;
+  text-align: left;
+  margin-bottom: 2.5rem;
+}
+
+.c-item label {
+  display: block;
+  font-size: 0.5rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 0.5rem;
+}
+.c-item a,
+.c-item p {
+  font-size: 0.88rem;
+  font-weight: 300;
+  color: var(--frost);
+  opacity: 0.82;
+  text-decoration: none;
+  line-height: 1.55;
+}
+.c-item a:hover { opacity: 1; text-decoration: underline; }
+
+.contact-note {
+  font-size: 0.72rem;
+  color: var(--frost);
+  opacity: 0.35;
+  line-height: 1.65;
+  font-style: italic;
+}
+
+/* ── FOOTER ── */
+footer {
+  scroll-snap-align: none;
+  background: var(--bark);
+  padding: 1.2rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(240,237,232,0.06);
+}
+footer p {
+  font-size: 0.58rem;
+  color: rgba(240,237,232,0.22);
+  letter-spacing: 0.06em;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .s-text { padding: 0 1.5rem 3rem; }
+  .nav-name { display: none; }
+  .c-grid { grid-template-columns: 1fr; gap: 1.4rem; }
+  footer { flex-direction: column; gap: 0.4rem; text-align: center; }
+  nav { padding: 1.2rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#hero">
+    <img src="images/logo.jpg" alt="Pukin tila" onerror="this.style.display='none'">
+    <span class="nav-name">Pukin tila</span>
+  </a>
+  <div class="lang-btns">
+    <button onclick="setLang('fi')" id="btn-fi" class="active">FI</button>
+    <button onclick="setLang('sv')" id="btn-sv">SV</button>
+    <button onclick="setLang('en')" id="btn-en">EN</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="ph" id="ph-hero">
+    <div style="position:absolute;inset:0;background:linear-gradient(160deg,#1A2E1F 0%,#2A3D2E 35%,#1A1F2E 70%,#2C2119 100%);"></div>
+  </div>
+  <div class="hero-inner">
+    <img class="hero-logo" src="images/logo.jpg" alt="Pukin tila" onerror="this.style.display='none'">
+    <p class="hero-tagline i18n-inline">
+      <span class="lang-fi">Taljoja ja villaa — Oulusta</span>
+      <span class="lang-sv" style="display:none">Skinn och ull — från Uleåborg</span>
+      <span class="lang-en" style="display:none">Hides and wool — from Oulu</span>
+    </p>
+    <p class="hero-sub">Pukin tila &mdash; Oulu</p>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-bar"></div>
+    <span class="i18n-inline">
+      <span class="lang-fi">Selaa</span>
+      <span class="lang-sv" style="display:none">Bläddra</span>
+      <span class="lang-en" style="display:none">Scroll</span>
+    </span>
+  </div>
+</section>
+
+<!-- HIDES -->
+<section id="hides">
+  <div class="ph" id="ph-hides">
+    <div style="position:absolute;inset:0;background:linear-gradient(145deg,#1C1208 0%,#2C1A0E 40%,#3D2510 75%,#231508 100%);"></div>
+  </div>
+  <div class="s-text">
+    <span class="s-label i18n-inline">
+      <span class="lang-fi">Tuotteet</span>
+      <span class="lang-sv" style="display:none">Produkter</span>
+      <span class="lang-en" style="display:none">Products</span>
+    </span>
+    <h2 class="s-title i18n-inline">
+      <span class="lang-fi">Lampaan <em>taljat</em></span>
+      <span class="lang-sv" style="display:none">Fårens <em>skinn</em></span>
+      <span class="lang-en" style="display:none">Sheep <em>hides</em></span>
+    </h2>
+    <p class="s-body i18n-inline">
+      <span class="lang-fi">Pohjoisen lampaan talja on poikkeuksellisen kestävä ja lämmin. Pukin tilalla taljat saadaan lampaista, jotka ovat kasvaneet Oulun alueen luonnonlaidunmailla. Jokainen talja on käsinvalmistettu ja luonnonmukainen.</span>
+      <span class="lang-sv" style="display:none">Norra Finlands fårskinn är exceptionellt hållbara och varma. På Pukin tila kommer skinnen från får som vuxit upp på naturliga betesmarker i Uleåborg. Varje skinn är handgjort och naturligt.</span>
+      <span class="lang-en" style="display:none">Northern sheep hides are exceptionally durable and warm. At Pukin tila, hides come from sheep raised on natural pastures in the Oulu region. Each hide is hand-prepared and natural.</span>
+    </p>
+    <a class="s-cta" href="#contact">
+      <span class="i18n-inline">
+        <span class="lang-fi">Kysy saatavuutta</span>
+        <span class="lang-sv" style="display:none">Fråga om tillgänglighet</span>
+        <span class="lang-en" style="display:none">Ask about availability</span>
+      </span>
+      &#8594;
+    </a>
+  </div>
+</section>
+
+<!-- WOOL -->
+<section id="wool">
+  <div class="ph" id="ph-wool">
+    <div style="position:absolute;inset:0;background:linear-gradient(200deg,#1E2820 0%,#29382B 40%,#3A4E3C 70%,#1A2218 100%);"></div>
+  </div>
+  <div class="s-text">
+    <span class="s-label i18n-inline">
+      <span class="lang-fi">Raakavillla</span>
+      <span class="lang-sv" style="display:none">Rå ull</span>
+      <span class="lang-en" style="display:none">Raw wool</span>
+    </span>
+    <h2 class="s-title i18n-inline">
+      <span class="lang-fi">Luonnon <em>pehmeys</em></span>
+      <span class="lang-sv" style="display:none">Naturens <em>mjukhet</em></span>
+      <span class="lang-en" style="display:none">Nature's <em>softness</em></span>
+    </h2>
+    <p class="s-body i18n-inline">
+      <span class="lang-fi">Raakavillla on käsiteltyä tai käsittelemätöntä lampaan villaa, jota voidaan kehrätä, värjätä tai käyttää sellaisenaan täytteenä ja eristemateriaalina. Pukin tilan villa on puhdasta ja käsittelemätöntä pohjoista raaka-ainetta.</span>
+      <span class="lang-sv" style="display:none">Rå ull är behandlad eller obehandlad fårull som kan spinnas, färgas eller användas som stoppningsmaterial och isolering. Ullen från Pukin tila är ren och obehandlad nordisk råvara.</span>
+      <span class="lang-en" style="display:none">Raw wool is processed or unprocessed sheep fleece that can be spun, dyed or used as filling and insulation. Pukin tila's wool is clean, unprocessed northern raw material.</span>
+    </p>
+    <a class="s-cta" href="mailto:pukintila@gmail.com">
+      <span class="i18n-inline">
+        <span class="lang-fi">Ota yhteyttä</span>
+        <span class="lang-sv" style="display:none">Ta kontakt</span>
+        <span class="lang-en" style="display:none">Get in touch</span>
+      </span>
+      &#8594;
+    </a>
+  </div>
+</section>
+
+<!-- STORY -->
+<section id="story">
+  <div class="ph" id="ph-story">
+    <div style="position:absolute;inset:0;background:linear-gradient(170deg,#111820 0%,#1A2535 45%,#222E3D 80%,#141B28 100%);"></div>
+  </div>
+  <div class="s-text">
+    <span class="s-label i18n-inline">
+      <span class="lang-fi">Tila</span>
+      <span class="lang-sv" style="display:none">Gården</span>
+      <span class="lang-en" style="display:none">The farm</span>
+    </span>
+    <h2 class="s-title i18n-inline">
+      <span class="lang-fi">Pikkalassa, <em>Oulussa</em></span>
+      <span class="lang-sv" style="display:none">I Pikkalansalmi, <em>Uleåborg</em></span>
+      <span class="lang-en" style="display:none">In Pikkalansalmi, <em>Oulu</em></span>
+    </h2>
+    <p class="s-body i18n-inline">
+      <span class="lang-fi">Pukin tila sijaitsee Oulussa, Pikkaralan alueella. Tila on pieni suoramyyntiin erikoistunut lammastila, joka myy lampaan taljoja ja raakavillaa suoraan asiakkaille. Tuotteet ovat puhtaasti kotimaista alkuperää.</span>
+      <span class="lang-sv" style="display:none">Pukin tila ligger i Uleåborg, i Pikkalansalmi-området. Gården är en liten fårgård specialiserad på direktförsäljning av fårskinn och rå ull direkt till kunder. Produkterna är av rent inhemskt ursprung.</span>
+      <span class="lang-en" style="display:none">Pukin tila is located in Oulu, in the Pikkalansalmi area. The farm is a small sheep farm specialising in direct sales of sheep hides and raw wool. All products are of purely Finnish origin.</span>
+    </p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-wrap">
+    <span class="s-label i18n-inline" style="display:block;text-align:center;">
+      <span class="lang-fi">Yhteystiedot</span>
+      <span class="lang-sv" style="display:none">Kontakt</span>
+      <span class="lang-en" style="display:none">Contact</span>
+    </span>
+    <h2 class="s-title i18n-inline">
+      <span class="lang-fi">Ota <em>yhteyttä</em></span>
+      <span class="lang-sv" style="display:none">Ta <em>kontakt</em></span>
+      <span class="lang-en" style="display:none">Get in <em>touch</em></span>
+    </h2>
+    <div class="c-grid">
+      <div class="c-item">
+        <label class="i18n-inline">
+          <span class="lang-fi">Puhelin</span>
+          <span class="lang-sv" style="display:none">Telefon</span>
+          <span class="lang-en" style="display:none">Phone</span>
+        </label>
+        <a href="tel:+358400588292">040 0588 292</a>
+      </div>
+      <div class="c-item">
+        <label class="i18n-inline">
+          <span class="lang-fi">Sähköposti</span>
+          <span class="lang-sv" style="display:none">E-post</span>
+          <span class="lang-en" style="display:none">Email</span>
+        </label>
+        <a href="mailto:pukintila@gmail.com">pukintila@gmail.com</a>
+      </div>
+      <div class="c-item">
+        <label class="i18n-inline">
+          <span class="lang-fi">Sijainti</span>
+          <span class="lang-sv" style="display:none">Plats</span>
+          <span class="lang-en" style="display:none">Location</span>
+        </label>
+        <p>Pukintie 121<br>Oulu</p>
+      </div>
+      <div class="c-item">
+        <label class="i18n-inline">
+          <span class="lang-fi">Tuotteet</span>
+          <span class="lang-sv" style="display:none">Produkter</span>
+          <span class="lang-en" style="display:none">Products</span>
+        </label>
+        <p class="i18n-inline">
+          <span class="lang-fi">Taljat, raakavillla</span>
+          <span class="lang-sv" style="display:none">Skinn, rå ull</span>
+          <span class="lang-en" style="display:none">Hides, raw wool</span>
+        </p>
+      </div>
+    </div>
+    <p class="contact-note i18n-inline">
+      <span class="lang-fi">Tilaukset ja kyselyt sähköpostitse tai puhelimitse. Tuotteita myydään myös paikallisissa joulumyyjäisissä.</span>
+      <span class="lang-sv" style="display:none">Beställningar och förfrågningar via e-post eller telefon. Produkterna säljs även på lokala julmarknader.</span>
+      <span class="lang-en" style="display:none">Orders and enquiries by email or phone. Products are also sold at local Christmas markets.</span>
+    </p>
+  </div>
+</section>
+
+<footer>
+  <p>Pukin tila &mdash; Oulu</p>
+  <p class="i18n-inline">
+    <span class="lang-fi">Demo, suunnitellut Anton Jalonen &mdash; Julkaisematon ehdotus</span>
+    <span class="lang-sv" style="display:none">Demo, designad av Anton Jalonen &mdash; Opublicerat förslag</span>
+    <span class="lang-en" style="display:none">Demo, designed by Anton Jalonen &mdash; Unpublished proposal</span>
+  </p>
+</footer>
+
+<script>
+function setLang(lang) {
+  ['fi','sv','en'].forEach(l => {
+    document.querySelectorAll('.lang-' + l).forEach(el => {
+      el.style.display = l === lang ? '' : 'none';
+    });
+    const b = document.getElementById('btn-' + l);
+    if (b) b.classList.toggle('active', l === lang);
+  });
+  document.documentElement.lang = lang;
+  document.title = {
+    fi: 'Pukin tila — Oulu',
+    sv: 'Pukin tila — Uleåborg',
+    en: 'Pukin tila — Oulu'
+  }[lang];
+}
+setLang('fi');
+</script>
+</body>
+</html>
